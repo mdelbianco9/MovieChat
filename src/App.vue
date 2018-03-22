@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <v-app>
-    <v-toolbar app>
-      <v-btn @click.stop="drawer = !drawer" dark color="blue">Search</v-btn>
+      <v-container-fluid class="main-container">
+    <v-toolbar app color="light-blue lighten-2">
+      <v-btn @click.stop="drawer = !drawer" dark color="red accent-3">Search</v-btn>
     </v-toolbar>
 
   <v-layout wrap style="height: 200px;">
@@ -11,6 +12,7 @@
       temporary
       v-model="drawer"
       absolute
+      class="pl-2 pr-2"
     >
       <v-list class="pa-1">
         <v-list-tile avatar>
@@ -28,11 +30,24 @@
           label="What do you want to watch?"
           id="testing"
         ></v-text-field>
-      
+
+        <h1 headline>Recommendations</h1>
+
+        <a>
+          <v-card-media class="mt-3" src="https://images-na.ssl-images-amazon.com/images/I/91+X85ksGPL._RI_.jpg" height="300px">
+          </v-card-media>
+        </a>
+
+        <a>
+        <v-card-media class="mt-3" src="https://i.ytimg.com/vi/A7lc6WDaHls/hqdefault.jpg" height="300px">
+        </v-card-media>
+        </a>
+        
       </v-list>
 
     </v-navigation-drawer>
   </v-layout>
+</v-container-fluid>
   </v-app>
 
 
@@ -57,10 +72,7 @@ export default {
   data () {
       return {
         drawer: null,
-        items: [
-          { title: 'Home', icon: 'dashboard' },
-          { title: 'About', icon: 'question_answer' }
-        ]
+        
       }
     }
 }
@@ -76,12 +88,7 @@ export default {
   margin-top: 60px;
 }
 
-.toolbar {
-  background-color: red;
-}
-
-.drawer {
-  position: relative;
-  margin-top: 2rem;
+.main-container {
+  height: 100%;
 }
 </style>
