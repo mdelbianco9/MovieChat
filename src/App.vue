@@ -1,53 +1,59 @@
 <template>
   <div id="app">
     <v-app>
-      <v-container-fluid class="main-container">
+      <!-- Tool Bar -->
     <v-toolbar app color="light-blue lighten-2">
       <v-btn @click.stop="drawer = !drawer" dark color="red accent-3">Search</v-btn>
     </v-toolbar>
+    <!-- End of Tool Bar -->
 
-  <v-layout wrap style="height: 200px;">
-    
-    <v-navigation-drawer
-      temporary
-      v-model="drawer"
-      absolute
-      class="pl-2 pr-2"
-    >
-      <v-list class="pa-1">
-        <v-list-tile avatar>
-          <v-list-tile-content>
-            <v-list-tile-title>Welcome to MovieChat</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
+    <!-- Main container area -->
+    <v-container-fluid class="main-container">
 
-      <v-list class="pt-0" dense>
-        <v-divider></v-divider>
-        
-        <v-text-field class="pl-2 pt-3"
-          name="input-1"
-          label="What do you want to watch?"
-          id="testing"
-        ></v-text-field>
+      <!-- Side Drawer -->
+      <v-layout wrap style="height: 50px;">
+        <v-navigation-drawer
+          temporary
+          v-model="drawer"
+          absolute
+          class="pl-2 pr-2"
+        >
+          <v-list class="pa-1">
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Welcome to MovieChat</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
 
-        <h1 headline>Recommendations</h1>
+          <v-list class="pt-0" dense>
+            <v-divider></v-divider>
+            
+            <v-text-field class="pl-2 pt-3"
+              name="input-1"
+              label="What do you want to watch?"
+              id="testing"
+            ></v-text-field>
 
-        <a>
-          <v-card-media class="mt-3" src="https://images-na.ssl-images-amazon.com/images/I/91+X85ksGPL._RI_.jpg" height="300px">
-          </v-card-media>
-        </a>
+            <h1 headline>Recommendations</h1>
 
-        <a>
-        <v-card-media class="mt-3" src="https://i.ytimg.com/vi/A7lc6WDaHls/hqdefault.jpg" height="300px">
-        </v-card-media>
-        </a>
-        
-      </v-list>
+            <a>
+              <v-card-media class="mt-3" src="https://images-na.ssl-images-amazon.com/images/I/91+X85ksGPL._RI_.jpg" height="300px">
+              </v-card-media>
+            </a>
 
-    </v-navigation-drawer>
-  </v-layout>
-</v-container-fluid>
+            <a>
+            <v-card-media class="mt-3" src="https://i.ytimg.com/vi/A7lc6WDaHls/hqdefault.jpg" height="300px">
+            </v-card-media>
+            </a>
+
+          </v-list>
+        </v-navigation-drawer>
+      </v-layout>
+      <!-- End of Drawer -->
+
+      <SearchResults/>
+    </v-container-fluid>
   </v-app>
 
 
@@ -57,7 +63,7 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import SearchResults from './components/SearchResults'
 import Vue from 'vue';
 import axios from 'axios';
 import Vuetify from 'vuetify'
@@ -67,7 +73,7 @@ Vue.use(Vuetify)
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SearchResults
   },
   data () {
       return {
