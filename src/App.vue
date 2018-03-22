@@ -8,10 +8,10 @@
     <!-- End of Tool Bar -->
 
     <!-- Main container area -->
-    <v-container-fluid class="main-container">
+    <v-container fluid class="main-container">
 
       <!-- Side Drawer -->
-      <v-layout wrap style="height: 50px;">
+      <v-layout wrap style="height: 50px;"">
         <v-navigation-drawer
           temporary
           v-model="drawer"
@@ -33,9 +33,12 @@
               name="input-1"
               label="What do you want to watch?"
               id="testing"
+              v-model="msg"
+              v-on:keyup.enter="addTask"
             ></v-text-field>
 
             <h1 headline>Recommendations</h1>
+            <h3>{{ msg }}</h3>
 
             <a>
               <v-card-media class="mt-3" src="https://images-na.ssl-images-amazon.com/images/I/91+X85ksGPL._RI_.jpg" height="300px">
@@ -52,8 +55,9 @@
       </v-layout>
       <!-- End of Drawer -->
 
-      <SearchResults/>
-    </v-container-fluid>
+      <SearchResults :msg="msg"></SearchResults>
+
+    </v-container>
   </v-app>
 
 
@@ -73,11 +77,12 @@ Vue.use(Vuetify)
 export default {
   name: 'App',
   components: {
-    SearchResults
+    SearchResults,
   },
   data () {
       return {
         drawer: null,
+        msg:'',
         
       }
     }
