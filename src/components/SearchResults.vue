@@ -18,9 +18,11 @@
               v-on:keyup.enter="addTask"
             ></v-text-field> -->
             <v-card-text class="px-0">{{ msg }}</v-card-text>
+
             <v-card dark color="light-blue lighten-2" v-for="task in list">
               <v-card-text class="px-0">{{ title }}</v-card-text>
             </v-card>
+
           </v-flex>
         </v-layout>
       </v-container>
@@ -37,7 +39,6 @@ export default {
   props: ['msg'],
   data () {
     return {
-      // msg: 'Hello',
       mytext: '',
       list: [],
       results: [],
@@ -81,10 +82,10 @@ export default {
         // this.rating = newRating;
         // console.log(newRating);
 
-        // // Movie Image
-        // var img = this.results.Poster;
-        // this.image = img;
-        // console.log("Image is posting");
+        // Movie Image
+        var img = this.results.Poster;
+        this.image = img;
+        console.log("Image is posting");
         }
 
   },
