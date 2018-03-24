@@ -9,7 +9,6 @@
 
     <!-- Main container area -->
     <v-container fluid class="main-container">
-
       <!-- Side Drawer -->
       <v-layout wrap style="height: 50px;"">
         <v-navigation-drawer
@@ -28,47 +27,18 @@
 
           <v-list class="pt-0" dense>
             <v-divider></v-divider>
-            <v-text-field class="pl-2 pt-3"
-              name="input-1"
-              label="What do you want to watch?"
-              id="testing"
-              v-model="msg"
-              v-on:keyup.enter="addTask"
-            ></v-text-field>
+
+            <!-- This is where the Input Component Goes -->
+            <InputComponent></InputComponent>
+
             <h1 headline>Recommendations</h1>
-            <h3>{{ msg }}</h3>
-            <!-- <a>
-              <v-card-media class="mt-3" src="https://images-na.ssl-images-amazon.com/images/I/91+X85ksGPL._RI_.jpg" height="300px">
-              </v-card-media>
-            </a>
-            <a>
-            <v-card-media class="mt-3" src="https://i.ytimg.com/vi/A7lc6WDaHls/hqdefault.jpg" height="300px">
-            </v-card-media>
-            </a> -->
           </v-list>
         </v-navigation-drawer>
       </v-layout>
       <!-- End of Drawer -->
 
-      <!-- <SearchResults :msg="msg"></SearchResults> -->
-
-      <!-- Search Results -->
-      <v-container fluid grid-list-xl>
-        <v-layout row justify-space-between>
-          <v-flex class="m-5 box1" xs4 v-for="i in 3" :key="`4${i}`">
-            <v-card-media
-              src="https://images-na.ssl-images-amazon.com/images/I/91+X85ksGPL._RI_.jpg"
-              height="400px"
-              cover
-              >
-            </v-card-media>
-            <v-card dark color="light-blue lighten-2" v-for="task in list">
-              <v-card-text class="px-0">{{ title }}</v-card-text>
-            </v-card>
-
-          </v-flex>
-        </v-layout>
-      </v-container>
+      <!-- This is where the SearchResults component goes -->
+      <SearchResults></SearchResults>
 
     </v-container>
   </v-app>
@@ -80,7 +50,8 @@
 </template>
 
 <script>
-// import SearchResults from './components/SearchResults';
+import SearchResults from './components/SearchResults';
+import InputComponent from './components/InputComponent';
 import Vue from 'vue';
 import axios from 'axios';
 import Vuetify from 'vuetify'
@@ -90,70 +61,92 @@ Vue.use(Vuetify)
 export default {
   name: 'App',
   components: {
-    // SearchResults,
+    InputComponent,
+    SearchResults
   
   },
   data () {
       return {
         drawer: null,
-        msg:'',
-        mytext: '',
-        list: [],
-        results: [],
-        title: '',
-        year: '',
-        genre: '',
-        rating: '',
-        image: '',
-        url: "http://www.omdbapi.com/?i=tt3896198&apikey=af4ba98b",
       }
     },
-
-    mounted() {
-          axios.get(this.url).then(response => {this.results = response.data})
-        },
-
     methods: {
-        addTask: function() {
-          var task = this.mytext;
-          this.list.push(task);
-          this.mytext = "";
-          console.log("Function is working");
+    getConfig() {
+      let url = "".concat(this.baseURL, 'configuration', this.key);
+      fetch(url).then((result)=>{
+        return result.json();
+      })
+      .then((data)=>{
+        this.baseImageURL = data.images.secure_base_url;
+        console.log('config:', data);
+        console.log('config fetched');
+        // runSearch('jaws');
+        document.getElementById('newBox').innerHTML = JSON.stringify(data, null, 4);
+      })
+      .catch(function(err){
+        alert(err);
+      });
+    },
 
-     
-            // Movie Title
-            var newTitle = this.results.Title;
-            this.title = newTitle;
-           
-            if (this.msg == newTitle.toLowerCase()) {
-               console.log(newTitle);
-            }
-         
-          
+    runSearch(keyword) {
+      let url = "".concat(this.baseURL, 'search/movie', this.key, '&query', keyword);
+      fetch(url).then(retult=>result.json())
+      .then((data)=>{
+        document.getElementById('newBox').innerHTML = JSON.stringify(data, null, 4);
+        console.log(JSON.stringify(data, null, 4))
+      })
+    },
 
-        //   // Movie Year
-        // var newYear = this.results.Year;
-        // this.year = newYear;
-        // console.log(newYear);
+    handler(keyword){
+      this.getConfig();
+      this.runSearch(keyword);
+    },
 
-        // // Movie Genre
-        // var newGenre = this.results.Genre;
-        // this.genre = newGenre;
-        // console.log(newGenre);
 
-        // // IMDB Rating
-        // var newRating = this.results.imdbRating;
-        // this.rating = newRating;
-        // console.log(newRating);
 
-        // Movie Image
-        var img = this.results.Poster;
-        this.image = img;
-        console.log("Image is posting");
-        }
+    addTask: function() {
+      var task = this.message;
+      this.list.push(task);
+      console.log(this.results);
+      console.log(this.list[0]);
 
+
+
+
+      // var task = this.message;
+      // this.list.push(task);
+      // this.message = "";
+
+      // // Movie Title
+      //  var newTitle = this.results.Title;
+      //  this.title = newTitle;
+      // console.log(newTitle);
+
+      // // Movie Year
+      // var newYear = this.results.Year;
+      // this.year = newYear;
+      // console.log(newYear);
+
+      // // Movie Genre
+      // var newGenre = this.results.Genre;
+      // this.genre = newGenre;
+      // console.log(newGenre);
+
+      // // IMDB Rating
+      // var newRating = this.results.imdbRating;
+      // this.rating = newRating;
+      // console.log(newRating);
+
+      // // Movie Image
+      // var img = this.results.Poster;
+      // this.image = img;
+      // console.log("Image is posting");
+    },
+
+    learnMore: function() {
+      this.image = '';
+    }
   },
-    
 }
 </script>
 
