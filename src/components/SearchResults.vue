@@ -1,25 +1,26 @@
 <template>
   <div class="hello">
 
-      <v-container fluid grid-list-xl>
-        <v-layout row justify-space-between>
-          <v-flex class="m-5 box1" >
-            <!-- xs4 v-for="i in 3" :key="`4${i}`" goes in the line above-->
+     <!--  <v-container fluid grid-list-xl>
+        <v-layout row justify-space-between> -->
+          <v-flex justify-space-between
+             xs4 v-for="result in results" :key="`4${result.id}`">
             <v-card-media
               src="https://images-na.ssl-images-amazon.com/images/I/91+X85ksGPL._RI_.jpg"
               height="400px"
               cover
               >
             </v-card-media>
-            <!-- <v-card-text class="px-0">{{ msg }}</v-card-text> -->
+            <v-card-text class="px-0">{{ result.id }}</v-card-text>
 
             <v-card dark color="light-blue lighten-2">
               <!-- v-for="task in list" goes in line above -->
-              <v-card-text class="px-0">hello</v-card-text>
+              <v-card-text class="px-0">{{ result.original_title }}</v-card-text>
+              <h1> </h1>
             </v-card>
           </v-flex>
-        </v-layout>
-      </v-container>
+        <!-- </v-layout>
+      </v-container> -->
           
   </div>
 </template>
@@ -31,6 +32,7 @@ import InputComponent from './InputComponent';
 // import App from '../App';
 
 export default {
+  props: ['results'],
   data () {
     return {
 

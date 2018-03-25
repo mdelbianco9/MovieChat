@@ -28,8 +28,14 @@
           <v-list class="pt-0" dense>
             <v-divider></v-divider>
 
-            <!-- This is where the Input Component Goes -->
-            <InputComponent></InputComponent>
+          <v-text-field class="pl-2 pt-3"
+            name="input-1"
+            label="What do you want to watch?"
+            id="testing"
+            v-model="message" 
+            v-on:keyup.enter="handler()" 
+            >
+          </v-text-field>
 
             <h1 headline>Recommendations</h1>
           </v-list>
@@ -37,8 +43,11 @@
       </v-layout>
       <!-- End of Drawer -->
 
-      <!-- This is where the SearchResults component goes -->
-      <SearchResults></SearchResults>
+          <!-- This is where the SearchResults component goes -->
+      <SearchResults :results="results"></SearchResults>
+
+      
+      <div id="newBox"></div>
 
     </v-container>
   </v-app>
@@ -68,8 +77,22 @@ export default {
   data () {
       return {
         drawer: null,
+        message: "",
+        list: [],
+        results: [],
+        title: '',
+        year: '',
+        genre: '',
+        rating: '',
+        image: '',
+        baseURL: 'https://api.themoviedb.org/3/',
+        configData: null,
+        baseImageURL: null,
+        key: '?api_key=f942d08e742f6170fa89654a541ecfb0',
+        query: '&query='
       }
     },
+
     methods: {
     getConfig() {
       let url = "".concat(this.baseURL, 'configuration', this.key);
@@ -77,9 +100,11 @@ export default {
         return result.json();
       })
       .then((data)=>{
+        // This adds a value to our instance
         this.baseImageURL = data.images.secure_base_url;
         console.log('config:', data);
         console.log('config fetched');
+        console.log(this.baseImageURL);
         // runSearch('jaws');
         document.getElementById('newBox').innerHTML = JSON.stringify(data, null, 4);
       })
@@ -88,65 +113,26 @@ export default {
       });
     },
 
+    // Gets a keyword 
     runSearch(keyword) {
-      let url = "".concat(this.baseURL, 'search/movie', this.key, '&query', keyword);
-      fetch(url).then(retult=>result.json())
+      let url = "".concat(this.baseURL, 'search/movie', this.key, '&query=', keyword);
+      fetch(url)
+      .then(result=>result.json())
       .then((data)=>{
+        this.results = data.results;
         document.getElementById('newBox').innerHTML = JSON.stringify(data, null, 4);
         console.log(JSON.stringify(data, null, 4))
       })
     },
 
     handler(keyword){
+      var search = this.message;
       this.getConfig();
-      this.runSearch(keyword);
-    },
-
-
-
-    addTask: function() {
-      var task = this.message;
-      this.list.push(task);
+      this.runSearch(search);
       console.log(this.results);
-      console.log(this.list[0]);
-
-
-
-
-      // var task = this.message;
-      // this.list.push(task);
-      // this.message = "";
-
-      // // Movie Title
-      //  var newTitle = this.results.Title;
-      //  this.title = newTitle;
-      // console.log(newTitle);
-
-      // // Movie Year
-      // var newYear = this.results.Year;
-      // this.year = newYear;
-      // console.log(newYear);
-
-      // // Movie Genre
-      // var newGenre = this.results.Genre;
-      // this.genre = newGenre;
-      // console.log(newGenre);
-
-      // // IMDB Rating
-      // var newRating = this.results.imdbRating;
-      // this.rating = newRating;
-      // console.log(newRating);
-
-      // // Movie Image
-      // var img = this.results.Poster;
-      // this.image = img;
-      // console.log("Image is posting");
-    },
-
-    learnMore: function() {
-      this.image = '';
     }
-  },
+
+  }
 }
 </script>
 

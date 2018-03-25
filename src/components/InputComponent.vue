@@ -5,8 +5,8 @@
       name="input-1"
       label="What do you want to watch?"
       id="testing"
-      v-model="mytext"
-      v-on:keyup.enter="addTask"
+      v-model="message" 
+      v-on:keyup.enter="handler()" 
       >
     </v-text-field>
 
