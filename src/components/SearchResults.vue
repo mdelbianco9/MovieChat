@@ -1,26 +1,23 @@
 <template>
   <div class="hello">
 
-     <!--  <v-container fluid grid-list-xl>
-        <v-layout row justify-space-between> -->
-          <v-flex justify-space-between
+      <v-container fluid grid-list-xl>
+        <v-layout row wrap>
+          <v-flex
              xs4 v-for="result in results" :key="`4${result.id}`">
             <v-card-media
-              src="https://images-na.ssl-images-amazon.com/images/I/91+X85ksGPL._RI_.jpg"
+              :src="baseImageURL + result.poster_path"
               height="400px"
-              cover
+              contain
               >
             </v-card-media>
-            <v-card-text class="px-0">{{ result.id }}</v-card-text>
-
+          <!--   <v-card-text class="px-0">{{ result.id }}</v-card-text>
             <v-card dark color="light-blue lighten-2">
-              <!-- v-for="task in list" goes in line above -->
               <v-card-text class="px-0">{{ result.original_title }}</v-card-text>
-              <h1> </h1>
-            </v-card>
+            </v-card> -->
           </v-flex>
-        <!-- </v-layout>
-      </v-container> -->
+        </v-layout>
+      </v-container>
           
   </div>
 </template>
@@ -32,10 +29,13 @@ import InputComponent from './InputComponent';
 // import App from '../App';
 
 export default {
-  props: ['results'],
+  // props: ['results'],
+  props: {
+    results: Array,
+    baseImageURL: String,
+  },
   data () {
     return {
-
     }
   }
 
@@ -44,9 +44,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.hello {
-  border: 1px solid blue;
+.movieCard{
+  display: inline;
+  margin: 10px;
+  
 }
 
 h1, h2 {

@@ -44,7 +44,7 @@
       <!-- End of Drawer -->
 
           <!-- This is where the SearchResults component goes -->
-      <SearchResults :results="results"></SearchResults>
+      <SearchResults :results=results :baseImageURL=baseImageURL></SearchResults>
 
       
       <div id="newBox"></div>
@@ -89,9 +89,13 @@ export default {
         configData: null,
         baseImageURL: null,
         key: '?api_key=f942d08e742f6170fa89654a541ecfb0',
-        query: '&query='
+        query: '&query=',
+        fullImage: null
+
       }
     },
+
+
 
     methods: {
     getConfig() {
@@ -101,7 +105,7 @@ export default {
       })
       .then((data)=>{
         // This adds a value to our instance
-        this.baseImageURL = data.images.secure_base_url;
+        this.baseImageURL = data.images.secure_base_url +'w500';
         console.log('config:', data);
         console.log('config fetched');
         console.log(this.baseImageURL);
@@ -125,11 +129,11 @@ export default {
       })
     },
 
+
     handler(keyword){
       var search = this.message;
       this.getConfig();
       this.runSearch(search);
-      console.log(this.results);
     }
 
   }
