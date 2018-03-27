@@ -48,7 +48,11 @@
       <!-- Side Drawer -->
       
           <!-- This is where the SearchResults component goes -->
-      <SearchResults :results=results :baseImageURL=baseImageURL></SearchResults>
+      <SearchResults 
+        :results=results
+        :baseImageURL=baseImageURL 
+        :baseURL=baseURL
+        :mykey=mykey></SearchResults>
 
       
       <!-- <div id="newBox"></div> -->
@@ -84,15 +88,10 @@ export default {
         message: "",
         list: [],
         results: [],
-        title: '',
-        year: '',
-        genre: '',
-        rating: '',
-        image: '',
         baseURL: 'https://api.themoviedb.org/3/',
         configData: null,
         baseImageURL: null,
-        key: '?api_key=f942d08e742f6170fa89654a541ecfb0',
+        mykey: '?api_key=f942d08e742f6170fa89654a541ecfb0',
         query: '&query=',
         fullImage: null
 
@@ -103,7 +102,7 @@ export default {
 
     methods: {
     getConfig() {
-      let url = "".concat(this.baseURL, 'configuration', this.key);
+      let url = "".concat(this.baseURL, 'configuration', this.mykey);
       fetch(url).then((result)=>{
         return result.json();
       })
@@ -123,13 +122,13 @@ export default {
 
     // Gets a keyword 
     runSearch(keyword) {
-      let url = "".concat(this.baseURL, 'search/movie', this.key, '&query=', keyword);
+      let url = "".concat(this.baseURL, 'search/movie', this.mykey, '&query=', keyword);
       fetch(url)
       .then(result=>result.json())
       .then((data)=>{
         this.results = data.results;
         // document.getElementById('newBox').innerHTML = JSON.stringify(data, null, 4);
-        console.log(JSON.stringify(data, null, 4))
+        // console.log(JSON.stringify(data, null, 4))
       })
     },
 
@@ -138,7 +137,7 @@ export default {
       var search = this.message;
       this.getConfig();
       this.runSearch(search);
-      console.log(this.results);
+      // console.log(this.results);
     }
 
   }
