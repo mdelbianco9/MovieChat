@@ -10,6 +10,20 @@
     </v-toolbar>
     <!-- End of Tool Bar -->
 
+<!--     <modal></modal> -->
+
+<button
+      type="button"
+      class="btn"
+      @click="showModal"
+    >
+      Open Modal!
+    </button>
+
+    <modal
+      v-show="isModalVisible"
+      @close="closeModal"
+    />
     <v-layout wrap style="height: 50px;"">
         <v-navigation-drawer
           temporary
@@ -52,7 +66,8 @@
         :results=results
         :baseImageURL=baseImageURL 
         :baseURL=baseURL
-        :mykey=mykey></SearchResults>
+        :mykey=mykey>
+      </SearchResults>
 
       
       <!-- <div id="newBox"></div> -->
@@ -69,6 +84,7 @@
 <script>
 import SearchResults from './components/SearchResults';
 import InputComponent from './components/InputComponent';
+import modal from './components/modal.vue';
 import Vue from 'vue';
 // import axios from 'axios';
 import Vuetify from 'vuetify'
@@ -79,11 +95,13 @@ export default {
   name: 'App',
   components: {
     InputComponent,
-    SearchResults
+    SearchResults,
+    modal
   
   },
   data () {
       return {
+        // isModalVisible: false,
         drawer: null,
         message: "",
         list: [],
@@ -138,7 +156,15 @@ export default {
       this.getConfig();
       this.runSearch(search);
       // console.log(this.results);
-    }
+    },
+
+    // showModal() {
+    //     this.isModalVisible = true;
+    //   },
+
+    // closeModal() {
+    //     this.isModalVisible = false;
+    //   },
 
   }
 }

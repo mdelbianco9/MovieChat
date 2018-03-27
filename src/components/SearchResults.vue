@@ -9,7 +9,6 @@
              :key="`4${result.id}`" 
              v-on:click="getId(result.id)">
             <v-card-media
-               id="show-modal" @click="showModal = true"
               class="overlay"
               :src="baseImageURL + result.poster_path"
               height="400px"
@@ -33,7 +32,10 @@ import Vue from 'vue';
 // import App from '../App';
 
 export default {
-  // props: ['results'],
+  name: 'SearchResults',
+  // comonents: {
+  //   modal,
+  // },
   props: {
     results: Array,
     baseImageURL: String,
@@ -42,11 +44,18 @@ export default {
   },
   data () {
     return {
+      isModalVisible: false,
       newResults: this.results,
       newbaseURL: this.baseURL,
       newKey: this.mykey,
       newdata: null, 
-      showModal: false
+      showModal: false,
+      title: null,
+      genre: null,
+      imdb: null,
+      rotten: null,
+      production: null,
+      awards: null
     }
   },
   methods: {
@@ -56,10 +65,20 @@ export default {
       .then(newdata=>newdata.json())
       .then((data)=>{
         this.newdata = data;
+        this.title = data.title;
+        // this.genre = data.genre;
+
         console.log(JSON.stringify(data, null, 4))
-        console.log(this.newdata);
+        console.log(this.newdata.id);
       })
-    }
+    },
+    showModal() {
+        this.isModalVisible = true;
+      },
+
+    closeModal() {
+        this.isModalVisible = false;
+      },
   }
 
 }
