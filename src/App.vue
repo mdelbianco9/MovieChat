@@ -4,18 +4,18 @@
       <!-- Tool Bar -->
     <v-toolbar app color="light-blue lighten-2">
       <v-btn @click.stop="drawer = !drawer" dark color="red accent-3">Search</v-btn>
+      <v-toolbar-title class="white--text center-title">Welcome to MovieBot</v-toolbar-title>
+      <v-icon class="mr-2 white--text">Github</v-icon>
+      <v-icon class="mr-2 white--text">LinkedIn</v-icon>
     </v-toolbar>
     <!-- End of Tool Bar -->
 
-    <!-- Main container area -->
-    <v-container fluid class="main-container">
-      <!-- Side Drawer -->
-      <v-layout wrap style="height: 50px;"">
+    <v-layout wrap style="height: 50px;"">
         <v-navigation-drawer
           temporary
           v-model="drawer"
           absolute
-          class="pl-2 pr-2"
+          class="pl-2 pr-2 fixed-side"
         >
           <v-list class="pa-1">
             <v-list-tile avatar>
@@ -43,11 +43,15 @@
       </v-layout>
       <!-- End of Drawer -->
 
+    <!-- Main container area -->
+    <v-container fluid class="main-container">
+      <!-- Side Drawer -->
+      
           <!-- This is where the SearchResults component goes -->
       <SearchResults :results=results :baseImageURL=baseImageURL></SearchResults>
 
       
-      <div id="newBox"></div>
+      <!-- <div id="newBox"></div> -->
 
     </v-container>
   </v-app>
@@ -62,7 +66,7 @@
 import SearchResults from './components/SearchResults';
 import InputComponent from './components/InputComponent';
 import Vue from 'vue';
-import axios from 'axios';
+// import axios from 'axios';
 import Vuetify from 'vuetify'
  
 Vue.use(Vuetify)
@@ -110,7 +114,7 @@ export default {
         console.log('config fetched');
         console.log(this.baseImageURL);
         // runSearch('jaws');
-        document.getElementById('newBox').innerHTML = JSON.stringify(data, null, 4);
+        // document.getElementById('newBox').innerHTML = JSON.stringify(data, null, 4);
       })
       .catch(function(err){
         alert(err);
@@ -124,7 +128,7 @@ export default {
       .then(result=>result.json())
       .then((data)=>{
         this.results = data.results;
-        document.getElementById('newBox').innerHTML = JSON.stringify(data, null, 4);
+        // document.getElementById('newBox').innerHTML = JSON.stringify(data, null, 4);
         console.log(JSON.stringify(data, null, 4))
       })
     },
@@ -134,6 +138,7 @@ export default {
       var search = this.message;
       this.getConfig();
       this.runSearch(search);
+      console.log(this.results);
     }
 
   }
@@ -148,6 +153,15 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.fixed-side {
+  position: fixed;
+  margin-top: 2rem;
+}
+
+.center-title {
+  margin: auto;
 }
 
 .main-container {
