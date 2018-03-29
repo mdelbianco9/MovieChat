@@ -18,53 +18,40 @@
         </v-layout>
 
         <!-- Modal Box -->
-         <v-dialog v-model="dialog" fullscreen>
-          <v-layout row wrap>
-          <div id="my-modal">
-
-            <v-btn color="blue darken-1" light flat @click.native="dialog = false" d-inline>Close</v-btn>
-            <div class="">
-              <img :src="baseImageURL + newdata.poster_path" class="new-image">
-              <v-flex d-inline md6 class="info-box"> 
-                <h1> Hello world</h1>
-                <h1>{{ newdata.title }}</h1>
-                <h2>ID: {{ newdata.id }}</h2>
-                <h2> {{ newdata.overview}}</h2>
-                <h4>Rating: {{ newdata.vote_average}}</h4>
-                <h4>{{ newdata.tagline}}</h4>
-              </v-flex>
-            </div>
-
-          </div>
-         </v-layout>
-        </v-dialog>
-        <!-- End of Dialoge box -->
-      </v-container>
-
-          <v-flex xs12>
-            <v-card color="cyan darken-2" class="white--text">
+         <v-dialog v-model="dialog" fullscreen id="my-modal" v-show="">
+          <v-flex>
+            <v-card class="white--text" id="my-modal" fullscreen style="height:100%;">
               <v-container fluid grid-list-lg>
-                <v-layout row>
-                  <v-flex xs7>
-                    <div>
-                      <div class="headline">Supermodel</div>
-                      <div>Foster the People</div>
-                    </div>
-                  </v-flex>
-                  <v-flex xs5>
+                 <v-layout row>
+                  <v-flex xs5 class="mt-2">
                     <v-card-media
-                      src="/static/doc-images/cards/foster.jpg"
-                      height="125px"
+                      :src="baseImageURL + newdata.poster_path"
+                      height="400px"
                       contain
                     ></v-card-media>
                   </v-flex>
+                  <v-flex xs7 class="mt-2">
+                    <div>
+                      <div class="display-3">{{ newdata.title }}</div>
+                      <div>
+                        <h4 class="subheading">{{ newdata.tagline}}</h4>
+                        <h2 class="headline mt-3">{{ newdata.overview}}</h2>
+                        
+                        <h2 class="title mt-2"> Genre: {{ newdata.genres[0].name }}</h2>
+                    
+                        <h4 class="title mt-3">Rating: {{ newdata.vote_average}}</h4>
+                        <h4 class="title mt-2">Runtime: {{ newdata.runtime}} mins</h4>
+                      </div>
+                    </div>
+                  </v-flex>
+                  <v-btn color="orange darken-2" dark @click.native="dialog = false" d-inline>Close</v-btn>
                 </v-layout>
               </v-container>
             </v-card>
           </v-flex>
-
-
-     
+        </v-dialog>
+        <!-- End of Dialoge box -->
+      </v-container>
           
   </div>
 </template>
@@ -87,18 +74,18 @@ export default {
   },
   data () {
     return {
+      i: [1,2],
+      isModalVisible: true,
       dialog: false,
       newResults: this.results,
       newbaseURL: this.baseURL,
       newKey: this.mykey,
-      newdata: "", 
+      newdata: [], 
       showModal: false,
       title: null,
       genre: null,
-      imdb: null,
-      rotten: null,
-      production: null,
-      awards: null
+      
+
     }
   },
   methods: {
@@ -110,12 +97,11 @@ export default {
         this.newdata = data;
         this.title = data.title;
         // this.genre = data.genre;
-
-        console.log(JSON.stringify(data, null, 4))
-        console.log(this.newdata.id);
+        this.genre = data.genres;
+        // console.log(JSON.stringify(data, null, 4))
+        console.log(this.genre);
       })
     },
-
 
     showTheModal() {
         this.isModalVisible = true;
@@ -161,9 +147,8 @@ a {
 }*/
 
 #my-modal {
-  border: 1px solid black;
   padding: 20px;
-  background-color: rgba(0,0,0,.8);
+  background-color: rgba(0,0,0,.9);
   color: white;
   width: 100%;
   height: 100%;
