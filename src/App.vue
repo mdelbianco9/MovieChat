@@ -3,27 +3,14 @@
     <v-app>
       <!-- Tool Bar -->
     <v-toolbar app color="light-blue lighten-2">
-      <v-btn @click.stop="drawer = !drawer" dark color="red accent-3">Search</v-btn>
+      <v-btn @click.stop="drawer = !drawer" dark color="red accent-3" @click="closeIntro">Search</v-btn>
       <v-toolbar-title class="white--text center-title">Welcome to MovieBot</v-toolbar-title>
       <v-icon class="mr-2 white--text">Github</v-icon>
       <v-icon class="mr-2 white--text">LinkedIn</v-icon>
     </v-toolbar>
     <!-- End of Tool Bar -->
 
-<!--     <modal></modal> -->
-
-<!-- <button
-      type="button"
-      class="btn"
-      @click="showModal"
-    >
-      Open Modal!
-    </button>
-
-    <modal
-      v-show="isModalVisible"
-      @close="closeModal"
-    /> -->
+    <!-- Side Drawer -->
     <v-layout wrap style="height: 50px;"">
         <v-navigation-drawer
           temporary
@@ -52,6 +39,18 @@
           </v-text-field>
 
             <h1 headline>Recommendations</h1>
+
+            <v-card-media class="mt-3"
+              src="https://image.tmdb.org/t/p/w500/5vMEXtz1DXgxFsv8pgFFGuOlI8V.jpg"
+              height="400px"
+              contain
+              ></v-card-media>
+
+              <v-card-media class="mt-3"
+              src="https://image.tmdb.org/t/p/w500/ilrZAV2klTB0FLxLb01bOp5pzD9.jpg"
+              height="400px"
+              contain
+              ></v-card-media>
           </v-list>
         </v-navigation-drawer>
       </v-layout>
@@ -60,6 +59,22 @@
     <!-- Main container area -->
     <v-container fluid class="main-container">
       <!-- Side Drawer -->
+
+          <!-- Jumbotron -->
+       <v-jumbotron color="grey lighten-2" v-show="showIntro">
+        <v-container fill-height>
+          <v-layout align-center>
+            <v-flex>
+              <h3 class="display-3">Welcome to MovieBot</h3>
+              <span class="subheading">Search for any movie or show titles. </span>
+              <v-divider class="my-3"></v-divider>
+              <div class="title mb-3">Sorry for the boring Home Page</div>
+              <v-btn @click.stop="drawer = !drawer" large color="primary mx-0" @click="closeIntro">See more</v-btn>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-jumbotron>
+      <!-- End of jumbotron -->
       
           <!-- This is where the SearchResults component goes -->
       <SearchResults 
@@ -102,7 +117,7 @@ export default {
   },
   data () {
       return {
-        // isModalVisible: false,
+        showIntro: true,
         drawer: null,
         message: "",
         list: [],
@@ -112,7 +127,7 @@ export default {
         baseImageURL: null,
         mykey: '?api_key=f942d08e742f6170fa89654a541ecfb0',
         query: '&query=',
-        fullImage: null
+        fullImage: null,
 
       }
     },
@@ -150,6 +165,14 @@ export default {
         // console.log(JSON.stringify(data, null, 4))
       })
     },
+
+    showIntro() {
+        this.showIntro = true;
+      },
+
+    closeIntro() {
+        this.showIntro = false;
+      },
 
 
     handler(keyword){

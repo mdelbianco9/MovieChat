@@ -37,9 +37,9 @@
                         <h4 class="subheading">{{ newdata.tagline}}</h4>
                         <h2 class="headline mt-3">{{ newdata.overview}}</h2>
                         
-                        <h2 class="title mt-2"> Genre: {{ newdata.genres[0].name }}</h2>
+                        <!-- <h2 class="title mt-2"> Genre: {{ newdata.genres[0].name }}</h2> -->
                     
-                        <h4 class="title mt-3">Rating: {{ newdata.vote_average}}</h4>
+                        <h4 class="title mt-3">Rating: {{ newdata.vote_average}} / 10</h4>
                         <h4 class="title mt-2">Runtime: {{ newdata.runtime}} mins</h4>
                       </div>
                     </div>
@@ -74,7 +74,6 @@ export default {
   },
   data () {
     return {
-      i: [1,2],
       isModalVisible: true,
       dialog: false,
       newResults: this.results,
