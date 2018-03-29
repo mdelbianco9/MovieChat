@@ -12,7 +12,7 @@
 
 <!--     <modal></modal> -->
 
-<button
+<!-- <button
       type="button"
       class="btn"
       @click="showModal"
@@ -23,7 +23,7 @@
     <modal
       v-show="isModalVisible"
       @close="closeModal"
-    />
+    /> -->
     <v-layout wrap style="height: 50px;"">
         <v-navigation-drawer
           temporary
@@ -66,7 +66,8 @@
         :results=results
         :baseImageURL=baseImageURL 
         :baseURL=baseURL
-        :mykey=mykey>
+        :mykey=mykey
+        >
       </SearchResults>
 
       
@@ -96,7 +97,7 @@ export default {
   components: {
     InputComponent,
     SearchResults,
-    modal
+    // modal
   
   },
   data () {

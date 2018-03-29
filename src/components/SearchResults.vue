@@ -2,26 +2,69 @@
   <div class="hello">
 
       <v-container fluid grid-list-xl>
-
         <v-layout row wrap>
           <v-flex
              xs4 v-for="result in results" 
              :key="`4${result.id}`" 
              v-on:click="getId(result.id)">
-            <v-card-media
-              class="overlay"
+            <v-card-media 
+            v-on:click="getId(result.id)"
+             @click.native.stop="dialog = true"
               :src="baseImageURL + result.poster_path"
               height="400px"
               contain
               ></v-card-media>
-              
-            <!-- <v-card-text class="px-0">{{ result.id }}</v-card-text> -->
-            <!-- <v-card dark color="light-blue lighten-2">
-              <v-card-text class="px-0">{{ result.original_title }}</v-card-text>
-            </v-card> -->
           </v-flex>
         </v-layout>
+
+        <!-- Modal Box -->
+         <v-dialog v-model="dialog" fullscreen>
+          <v-layout row wrap>
+          <div id="my-modal">
+
+            <v-btn color="blue darken-1" light flat @click.native="dialog = false" d-inline>Close</v-btn>
+            <div class="">
+              <img :src="baseImageURL + newdata.poster_path" class="new-image">
+              <v-flex d-inline md6 class="info-box"> 
+                <h1> Hello world</h1>
+                <h1>{{ newdata.title }}</h1>
+                <h2>ID: {{ newdata.id }}</h2>
+                <h2> {{ newdata.overview}}</h2>
+                <h4>Rating: {{ newdata.vote_average}}</h4>
+                <h4>{{ newdata.tagline}}</h4>
+              </v-flex>
+            </div>
+
+          </div>
+         </v-layout>
+        </v-dialog>
+        <!-- End of Dialoge box -->
       </v-container>
+
+          <v-flex xs12>
+            <v-card color="cyan darken-2" class="white--text">
+              <v-container fluid grid-list-lg>
+                <v-layout row>
+                  <v-flex xs7>
+                    <div>
+                      <div class="headline">Supermodel</div>
+                      <div>Foster the People</div>
+                    </div>
+                  </v-flex>
+                  <v-flex xs5>
+                    <v-card-media
+                      src="/static/doc-images/cards/foster.jpg"
+                      height="125px"
+                      contain
+                    ></v-card-media>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card>
+          </v-flex>
+
+
+     
           
   </div>
 </template>
@@ -32,7 +75,7 @@ import Vue from 'vue';
 // import App from '../App';
 
 export default {
-  name: 'SearchResults',
+  // name: 'SearchResults',
   // comonents: {
   //   modal,
   // },
@@ -44,11 +87,11 @@ export default {
   },
   data () {
     return {
-      isModalVisible: false,
+      dialog: false,
       newResults: this.results,
       newbaseURL: this.baseURL,
       newKey: this.mykey,
-      newdata: null, 
+      newdata: "", 
       showModal: false,
       title: null,
       genre: null,
@@ -72,11 +115,13 @@ export default {
         console.log(this.newdata.id);
       })
     },
-    showModal() {
+
+
+    showTheModal() {
         this.isModalVisible = true;
       },
 
-    closeModal() {
+    closeTheModal() {
         this.isModalVisible = false;
       },
   }
@@ -101,6 +146,31 @@ li {
 }
 a {
   color: #42b983;
+}
+
+
+/*.new-image {
+  width: 25%;
+  display: inline;
+}
+
+.info-box {
+  width: 60%;
+  border: 2px solid white;
+  display: inline;
+}*/
+
+#my-modal {
+  border: 1px solid black;
+  padding: 20px;
+  background-color: rgba(0,0,0,.8);
+  color: white;
+  width: 100%;
+  height: 100%;
+  margin-top: 64px;
+  position: fixed;
+  overflow: scroll;
+  text-align: left;
 }
 
 .modal-mask {
