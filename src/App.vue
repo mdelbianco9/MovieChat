@@ -40,14 +40,14 @@
 
             <!-- <h1 headline>Recommendations</h1> -->
 
-            <v-card-media class="mt-3"
-              src="https://image.tmdb.org/t/p/w500/5vMEXtz1DXgxFsv8pgFFGuOlI8V.jpg"
+              <v-card-media class="mt-3"
+              src="https://image.tmdb.org/t/p/w500/ilrZAV2klTB0FLxLb01bOp5pzD9.jpg"
               height="400px"
               contain
               ></v-card-media>
 
-              <v-card-media class="mt-3"
-              src="https://image.tmdb.org/t/p/w500/ilrZAV2klTB0FLxLb01bOp5pzD9.jpg"
+                  <v-card-media class="mt-3"
+              src="https://image.tmdb.org/t/p/w500/5vMEXtz1DXgxFsv8pgFFGuOlI8V.jpg"
               height="400px"
               contain
               ></v-card-media>
@@ -65,8 +65,8 @@
         <v-container fill-height>
           <v-layout align-center>
             <v-flex>
-              <h3 class="display-3  black--text" style="font-weight: 500;">Welcome to MovieBot</h3>
-              <span class="subheading black--text">Search for any movie or show titles. </span>
+              <h3 class="display-3  red--text" style="font-weight: 500;">Welcome to MovieBot</h3>
+              <span class="subheading white--text">Search for any movie or show titles. </span>
               <v-divider class="my-3 white--text"></v-divider>
               <v-btn @click.stop="drawer = !drawer" large color="red mx-0 white--text" @click="closeIntro">See more</v-btn>
             </v-flex>
@@ -228,6 +228,7 @@ export default {
   background-position: right center;
   background-size: 120%;
   position: fixed;
+  padding-bottom: 2rem;
 }
 
 .isActive {

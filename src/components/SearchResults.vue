@@ -34,13 +34,15 @@
                     <div>
                       <div class="display-3">{{ newdata.title }}</div>
                       <div>
-                        <h4 class="subheading">{{ newdata.tagline}}</h4>
+                        <h4 class="subheading">Release Date: {{release}} <br>{{ newdata.tagline}}</h4>
                         <h2 class="headline mt-3">{{ newdata.overview}}</h2>
                         
-                        <!-- <h2 class="title mt-2"> Genre: {{ newdata.genres[0].name }}</h2> -->
+                        <!-- <h2 class="title mt-2"> Genre: {{ newdata.genres[0].name}}</h2> -->
                     
                         <h4 class="title mt-3">Rating: {{ newdata.vote_average}} / 10</h4>
                         <h4 class="title mt-2">Runtime: {{ newdata.runtime}} mins</h4>
+
+                        <a class="subheading" :href="newdata.homepage" target="_blank">{{ newdata.title }} Home Page </a>
                       </div>
                     </div>
                   </v-flex>
@@ -82,7 +84,8 @@ export default {
       newdata: [], 
       showModal: false,
       title: null,
-      genre: null,
+      genres: [],
+      release: "",
       
 
     }
@@ -98,7 +101,11 @@ export default {
         // this.genre = data.genre;
         this.genre = data.genres;
         // console.log(JSON.stringify(data, null, 4))
-        console.log(this.genre);
+        // console.log(this.genre);
+        let year = this.newdata.release_date;
+      this.release = year.toString().split("-")[0];
+      console.log(this.release);
+      
       })
     },
 
@@ -155,6 +162,8 @@ a {
   position: fixed;
   overflow: scroll;
   text-align: left;
+  padding-bottom: 2rem;
+
 }
 
 .modal-mask {
