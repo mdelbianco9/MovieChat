@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <!-- Tool Bar -->
-    <v-toolbar app color="light-blue lighten-2">
+    <v-toolbar app color="blue-grey darken-3">
       <v-btn @click.stop="drawer = !drawer" dark color="red accent-3" @click="closeIntro">Search</v-btn>
       <v-toolbar-title class="white--text center-title">Welcome to MovieBot</v-toolbar-title>
       <v-icon class="mr-2 white--text">Github</v-icon>
@@ -18,18 +18,18 @@
           absolute
           class="pl-2 pr-2 fixed-side"
         >
-          <v-list class="pa-1">
+         <!--  <v-list class="pa-1">
             <v-list-tile avatar>
               <v-list-tile-content>
                 <v-list-tile-title>Welcome to MovieChat</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-          </v-list>
+          </v-list> -->
 
           <v-list class="pt-0" dense>
             <v-divider></v-divider>
 
-          <v-text-field class="pl-2 pt-3"
+          <v-text-field class="pl-2 pt-5"
             name="input-1"
             label="What do you want to watch?"
             id="testing"
@@ -38,7 +38,7 @@
             >
           </v-text-field>
 
-            <h1 headline>Recommendations</h1>
+            <!-- <h1 headline>Recommendations</h1> -->
 
             <v-card-media class="mt-3"
               src="https://image.tmdb.org/t/p/w500/5vMEXtz1DXgxFsv8pgFFGuOlI8V.jpg"
@@ -57,19 +57,18 @@
       <!-- End of Drawer -->
 
     <!-- Main container area -->
-    <v-container fluid class="main-container">
+    <v-container fluid class="main-container" v-bind:class="{isActive}">
       <!-- Side Drawer -->
 
           <!-- Jumbotron -->
-       <v-jumbotron color="grey lighten-2" v-show="showIntro">
+       <v-jumbotron v-show="showIntro" style="width:50%; margin: auto; margin-top: 3rem; background-color: rgb(236, 239, 241, .6);">
         <v-container fill-height>
           <v-layout align-center>
             <v-flex>
-              <h3 class="display-3">Welcome to MovieBot</h3>
-              <span class="subheading">Search for any movie or show titles. </span>
-              <v-divider class="my-3"></v-divider>
-              <div class="title mb-3">Sorry for the boring Home Page</div>
-              <v-btn @click.stop="drawer = !drawer" large color="primary mx-0" @click="closeIntro">See more</v-btn>
+              <h3 class="display-3  black--text" style="font-weight: 500;">Welcome to MovieBot</h3>
+              <span class="subheading black--text">Search for any movie or show titles. </span>
+              <v-divider class="my-3 white--text"></v-divider>
+              <v-btn @click.stop="drawer = !drawer" large color="red mx-0 white--text" @click="closeIntro">See more</v-btn>
             </v-flex>
           </v-layout>
         </v-container>
@@ -128,6 +127,7 @@ export default {
         mykey: '?api_key=f942d08e742f6170fa89654a541ecfb0',
         query: '&query=',
         fullImage: null,
+        isActive: false,
 
       }
     },
@@ -179,8 +179,17 @@ export default {
       var search = this.message;
       this.getConfig();
       this.runSearch(search);
+      this.isActive = true;
       // console.log(this.results);
     },
+
+    reset: function() {
+    var vm = this;
+    vm.drawComponent = false;
+    Vue.nextTick(function() {
+      vm.drawComponent = true;
+    });
+  },
 
     // showModal() {
     //     this.isModalVisible = true;
@@ -215,5 +224,14 @@ export default {
 
 .main-container {
   height: 100%;
+  background-image: url(./img/newback.jpg);
+  background-position: right center;
+  background-size: 120%;
+  position: fixed;
+}
+
+.isActive {
+  background-image: none;
+  position: absolute;
 }
 </style>
