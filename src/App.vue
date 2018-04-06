@@ -4,9 +4,9 @@
       <!-- Tool Bar -->
     <v-toolbar app color="blue-grey darken-3">
       <v-btn @click.stop="drawer = !drawer" dark color="red accent-3" @click="closeIntro">Search</v-btn>
-      <v-toolbar-title class="white--text center-title">Welcome to MovieBot</v-toolbar-title>
-      <v-icon class="mr-2 white--text">Github</v-icon>
-      <v-icon class="mr-2 white--text">LinkedIn</v-icon>
+      <v-toolbar-title class="white--text center-title">MovieBot</v-toolbar-title>
+      <a href="https://github.com/mdelbianco9" class="mr-2 white--text">Github</a>
+      <a href="https://www.linkedin.com/in/marcus-del-bianco-24357b25/" class="mr-2 white--text">LinkedIn</a>
     </v-toolbar>
     <!-- End of Tool Bar -->
 
@@ -61,12 +61,12 @@
       <!-- Side Drawer -->
 
           <!-- Jumbotron -->
-       <v-jumbotron v-show="showIntro" style="width:50%; margin: auto; margin-top: 3rem; background-color: rgb(236, 239, 241, .6);">
+       <v-jumbotron v-show="showIntro" style="width:50%; padding: .5rem; margin: auto; margin-top: 3rem; background-color: rgb(236, 239, 241, .6);">
         <v-container fill-height>
           <v-layout align-center>
             <v-flex>
-              <h3 class="display-3  red--text" style="font-weight: 500;">Welcome to MovieBot</h3>
-              <span class="subheading white--text">Search for any movie or show titles. </span>
+              <h3 class="display-2  red--text" style="font-weight: 500;">Welcome to MovieBot</h3>
+              <span class="title white--text">Search for any movie or show titles. </span>
               <v-divider class="my-3 white--text"></v-divider>
               <v-btn @click.stop="drawer = !drawer" large color="red mx-0 white--text" @click="closeIntro">See more</v-btn>
             </v-flex>

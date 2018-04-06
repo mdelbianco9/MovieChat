@@ -30,7 +30,7 @@
                       contain
                     ></v-card-media>
                   </v-flex>
-                  <v-flex xs7 class="mt-2">
+                  <v-flex xs7 class="mt-2 pb-2">
                     <div>
                       <div class="display-3">{{ newdata.title }}</div>
                       <div>
@@ -40,7 +40,7 @@
                         <!-- <h2 class="title mt-2"> Genre: {{ newdata.genres[0].name}}</h2> -->
                     
                         <h4 class="title mt-3">Rating: {{ newdata.vote_average}} / 10</h4>
-                        <h4 class="title mt-2">Runtime: {{ newdata.runtime}} mins</h4>
+                        <h4 class="title mt-2">Runtime: {{ runtime}}</h4>
 
                         <a class="subheading" :href="newdata.homepage" target="_blank">{{ newdata.title }} Home Page </a>
                       </div>
@@ -86,6 +86,7 @@ export default {
       title: null,
       genres: [],
       release: "",
+      runtime: '',
       
 
     }
@@ -98,13 +99,22 @@ export default {
       .then((data)=>{
         this.newdata = data;
         this.title = data.title;
-        // this.genre = data.genre;
         this.genre = data.genres;
         // console.log(JSON.stringify(data, null, 4))
-        // console.log(this.genre);
+        // Takes year from fulldate
         let year = this.newdata.release_date;
-      this.release = year.toString().split("-")[0];
-      console.log(this.release);
+        this.release = year.toString().split("-")[0];
+        console.log(this.release);
+
+        // Converts runtime minues to hours
+        let time = this.newdata.runtime;
+        if (time <= 60) {
+          this.runtime = time + ' Minutes';
+        } else if (time == null) {
+          this.runtime = "No one Knows :-(";
+        } else {
+          this.runtime = (time/60).toFixed(1) + ' Hours';
+        }
       
       })
     },
