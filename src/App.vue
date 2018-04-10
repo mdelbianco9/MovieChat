@@ -61,12 +61,12 @@
       <!-- Side Drawer -->
 
           <!-- Jumbotron -->
-       <v-jumbotron v-show="showIntro" style="width:50%; padding: .5rem; margin: auto; margin-top: 3rem; background-color: rgb(236, 239, 241, .6);">
+       <v-jumbotron v-show="showIntro" style="width:50%; padding: .5rem; margin: auto; margin-top: 3rem; background-color: rgb(236, 239, 241, .8);">
         <v-container fill-height>
           <v-layout align-center>
             <v-flex>
               <h3 class="display-2  red--text" style="font-weight: 500;">Welcome to MovieBot</h3>
-              <span class="title white--text">Search for any movie or show titles. </span>
+              <span class="title black--text">Search for any movie or show titles. </span>
               <v-divider class="my-3 white--text"></v-divider>
               <v-btn @click.stop="drawer = !drawer" large color="red mx-0 white--text" @click="closeIntro">See more</v-btn>
             </v-flex>
